@@ -3,8 +3,10 @@ kind: Deployable
 metadata:
   name: app-deploy2
   namespace: app-entitlement
-    annotations:
+  annotations:
     app.ibm.com/is-local-deployable: "false"
+  labels:
+    app: hello-kubernetes
 spec:
   template:
     apiVersion: apps/v1
