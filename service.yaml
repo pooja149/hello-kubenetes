@@ -1,24 +1,13 @@
-apiVersion: app.ibm.com/v1alpha1
-kind: Deployable
+apiVersion: v1
+kind: Service
 metadata:
-  name: app-deploy1
-  namespace: app-entitlement
-  annotations:
-    app.ibm.com/is-local-deployable: "false"
+  name: hello-kubernetes-private
   labels:
     app: hello-kubernetes
 spec:
-  template:
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: hello-kubernetes-private
-      labels:
-        app: hello-kubernetes
-    spec:
-      type: LoadBalancer
-      ports:
-      - port: 80
-        targetPort: 8080
-      selector:
-        app: hello-kubernetes
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: hello-kubernetes
