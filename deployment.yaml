@@ -1,26 +1,21 @@
-apiVersion: app.ibm.com/v1alpha1
-kind: Deployable
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: app-deploy2
-  namespace: app-entitlement
-  annotations:
-    app.ibm.com/is-local-deployable: "false"
+  name: hello-kubernetes-private
   labels:
     app: hello-kubernetes
 spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-kubernetes
   template:
-    apiVersion: apps/v1
-    kind: Deployment
     metadata:
-      name: hello-kubernetes-private
       labels:
         app: hello-kubernetes
     spec:
-      replicas: 3
-      selector:
-        matchLabels:
-          app: hello-kubernetes
-      template:
-        metadata:
-          labels:
-            app: hello-kubernetes
+      containers:
+      - name: hello-kubernetes
+        image: paulbouwer/hello-kubernetes:1.8
+        ports:
+        - containerPort: 8080
